@@ -10,6 +10,7 @@ const logIn = async(data: User) => {
     // if (dbTest.includes(data.email)) {
 
     // }
+    //tu bedzie szukanie z bazy danych
     const foundUser: User | undefined = dbTest.find((e) => e.email === data.email);
 
     if (!foundUser) {

@@ -8,12 +8,11 @@ const dbTest: User[] = []
 
 const register = async(data: User) => {
     try {
-
         const newUser: User = {
             email: data.email,
             password: await hashPassword(data.password, dotenv.SALTROUNDS)
         }
-        await dbTest.push(data); //change to adding to database
+        await dbTest.push(newUser); //tu bedzie dodawanie do bazy danych
 
     } catch (error) {
         console.log(error);
