@@ -1,0 +1,52 @@
+<div class="app-signin">
+  <mat-card class="app-signin__card">
+    <div class="app-signin__card--login">
+      <form [formGroup]="loginForm">
+        <h1>Logowanie</h1>
+        <div>
+          <mat-form-field appearance="outline" class="app-signin__card--input">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" maxlength="50" />
+            <mat-error
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+              "
+              >To pole jest wymagane</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="app-signin__card--input">
+            <mat-label>Hasło</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              maxlength="50"
+              [type]="passwordIsHide ? 'password' : 'text'"
+            />
+            <button
+              class="app-signin__card--password-button"
+              mat-icon-button
+              matSuffix
+              (click)="passwordIsHide = !passwordIsHide"
+            ></button>
+            <mat-error
+              *ngIf="
+                loginForm.get('password')?.invalid &&
+                loginForm.get('password')?.touched
+              "
+              >To pole jest wymagane</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div *ngIf="error" class="app-signin__card--error-message">
+          {{ error }}
+        </div>
+        <div class="app-signin__card--login-button">
+          <button (click)="login()">ZALOGUJ SIĘ</button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>
