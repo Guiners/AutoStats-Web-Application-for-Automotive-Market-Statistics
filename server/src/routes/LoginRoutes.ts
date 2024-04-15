@@ -5,9 +5,9 @@ const jwtAuth = require('../middlewear/jwtAuth');
 const router = express.Router();
 
 router.route('/register')
-    .post(jwtAuth.auth, LoginController.handleRegister)
+    .post(LoginController.handleRegister)
 
 router.route('/login')
-    .post(jwtAuth.auth, LoginController.handleLogin)
+    .post(LoginController.handleLogin)
     
 module.exports = router;

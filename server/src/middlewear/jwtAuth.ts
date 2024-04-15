@@ -1,6 +1,5 @@
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-const BlacklistedTokenDB = require('../model/blackListedTokens');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -16,13 +15,8 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
         if (!token) {
             throw new Error();
         } 
-
-        const blackListedToken = await BlacklistedTokenDB.findOne({token: token});
-        if (blackListedToken) {
-            throw new Error('Token not atuhorized')
-        }
         
-        const decoded = jwt.verify(token, dotenv.JWTKEY);
+        const decoded = jwt.verify(token, String(process.env.JWTKEY));
         (req as CustomRequest).token = decoded;
 
         next();
