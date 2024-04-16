@@ -1,14 +1,15 @@
 import User from '../entities/usersEntity'
 import hashPassword from './hashService'
+import logIn from "./loginService";
 import pool from '../database/dbConfing'
-const queries = require('../database/queries');
+
+const queries = require('../database/userQueries');
 const dotenv = require('dotenv');
 dotenv.config();
 
 
 const register = async(data: User) => {
     const client = await pool.connect();
-    console.log(data.password, process.env.SALTROUNDS);
 
     try {
         const newUser: User = {
@@ -16,6 +17,7 @@ const register = async(data: User) => {
             password: await hashPassword(data.password, Number(process.env.SALTROUNDS))
         }
         await client.query(queries.registerQuery, [newUser.email, newUser.password]); 
+        await logIn(data);
 
     } catch (error) {
         console.log(error);

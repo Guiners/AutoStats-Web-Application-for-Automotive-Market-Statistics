@@ -14,8 +14,8 @@ const handleRegister = async (req: Request, res: Response) => {
 
 const handleLogin = async (req: Request, res: Response) => {
     try {
-        const response = await logIn(req.body);
-        res.status(200).json(response);
+        const result = await logIn(req.body);
+        res.status(200).json(result);
 
     } catch (error) {
         return res.status(401).json({ "message": `${error}`});

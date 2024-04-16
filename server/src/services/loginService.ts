@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import pool from '../database/dbConfing'
 import { QueryResult } from 'pg';
-const queries = require('../database/queries');
+const queries = require('../database/userQueries');
 const dotenv = require('dotenv');
 dotenv.config();
 

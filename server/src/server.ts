@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/user', require('./routes/LoginRoutes'));
+app.use('/posts', require('./routes/PostsRoutes'));
 
 
 app.listen(port, () => {
