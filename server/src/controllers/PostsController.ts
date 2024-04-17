@@ -3,34 +3,36 @@ import { QueryResult } from 'pg';
 import { getDataFromColumnsPosts, getAllPostsData, getDataFromWherePosts } from '../services/postsService';
 
 
-const getFilteredColumnsPosts = async (req: Request, res: Response) => {
+const getHandler = async (req: Request, res: Response, func: any, passBody: boolean) => {
     try {
-        const result: QueryResult = await getDataFromColumnsPosts(req.body);
-        res.status(200).json({ result });
+        if (passBody){
+
+            const result: QueryResult = await func(req.body);
+            console.log(result.rows[1])
+            res.status(200).json({ rows: result.rows });
+
+        } else {
+
+            const result: QueryResult = await func();
+            res.status(200).json({ rows: result.rows });
+        } 
 
     } catch (error) {
         return res.status(401).json({ "messagse": `${error}`});
     }
+}
+
+const getFilteredColumnsPosts = async (req: Request, res: Response) => {
+    await getHandler(req, res, getDataFromColumnsPosts, true)
 }
 
 
 const getDataWherePosts = async (req: Request, res: Response) => {
-    try {
-        const result: QueryResult = await getDataFromWherePosts(req.body);
-        res.status(200).json({ result });
-
-    } catch (error) {
-        return res.status(401).json({ "messagse": `${error}`});
-    }
+    await getHandler(req, res, getDataFromWherePosts, true)
 }
 
 const getAllPosts = async (req: Request, res: Response) => {
-    try {
-        const result: QueryResult = await getAllPostsData();
-        res.status(200).json({ result });
-
-    } catch (error) {
-        return res.status(401).json({ "messagse": `${error}`});
-    }
+    await getHandler(req, res, getAllPostsData, false)
 }
+
 module.exports = { getFilteredColumnsPosts, getAllPosts, getDataWherePosts };

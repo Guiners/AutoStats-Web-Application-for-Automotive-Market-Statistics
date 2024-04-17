@@ -12,7 +12,7 @@ router.route('/filter')
     .get(PostsController.getFilteredColumnsPosts)
     // .get(jwtAuth.auth, PostsController.getFilteredPosts)
 
-router.route('/where')
+router.route('/filter/where')
     .get(PostsController.getDataWherePosts)
     // .get(jwtAuth.auth, PostsController.getFilteredPosts)
 
