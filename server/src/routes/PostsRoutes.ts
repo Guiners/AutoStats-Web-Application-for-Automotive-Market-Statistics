@@ -9,6 +9,13 @@ router.route('/')
     // .get(jwtAuth.auth, PostsController.getAllPosts)
 
 router.route('/filter')
-    .get(jwtAuth.auth, PostsController.getFilteredPosts)
-    
+    .get(PostsController.getFilteredColumnsPosts)
+    // .get(jwtAuth.auth, PostsController.getFilteredPosts)
+
+router.route('/where')
+    .get(PostsController.getDataWherePosts)
+    // .get(jwtAuth.auth, PostsController.getFilteredPosts)
+
+
+
 module.exports = router;

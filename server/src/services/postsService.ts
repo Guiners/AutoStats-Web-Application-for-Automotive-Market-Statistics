@@ -6,10 +6,24 @@ const queries = require('../database/postsQueries');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const getFilteredPostsData = async(data: Filter) => {
+const getDataFromColumnsPosts = async(data: Filter) => {
     const client = await pool.connect();
     
-    const query: string = await queryGenerator(data.inputColumns, data.inputValues, queries.columnsPostsTable);
+    const query: string = await queryGenerator(data.inputColumns, queries.columnsPostsTable,);
+    
+    const queryResponse: QueryResult = await client.query(query); 
+
+    if (queryResponse.rows.length === 0) {
+        throw new Error('Query not found');
+    };
+
+    return queryResponse;
+}
+
+const getDataFromWherePosts = async(data: Filter) => {
+    const client = await pool.connect();
+    
+    const query: string = await queryGenerator(data.inputColumns, queries.columnsPostsTable, data.inputValues);
     
     const queryResponse: QueryResult = await client.query(query); 
 
@@ -32,6 +46,7 @@ const getAllPostsData = async() => {
     return queryResponse;
 }
 export {
-    getFilteredPostsData, 
+    getDataFromColumnsPosts,
+    getDataFromWherePosts, 
     getAllPostsData
 }
