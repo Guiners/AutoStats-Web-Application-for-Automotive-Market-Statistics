@@ -6,7 +6,7 @@ const calculationServices = require("../services/calculationServices");
 const calcHandeler = async (req: Request, res: Response, func: any, arg1?: any) => {
     try {
         const data: QueryResult = await getDataFromWherePosts(req.body);
-        const result: number = calculationServices.calcStatistic(req.body.columnToCount, data, func, arg1);
+        const result: number = await calculationServices.calcStatistic(req.body.columnToCount, data, func, arg1);
         res.status(200).json({result});
 
     } catch (error) {

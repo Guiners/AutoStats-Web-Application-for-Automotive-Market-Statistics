@@ -1,7 +1,4 @@
-// import queryGenerator from "./queryGeneratorService";
-// import Filter from '../entities/filterEntity';
 import { QueryResult } from 'pg';
-// import { getDataFromColumnsPosts, getAllPostsData, getDataFromWherePosts } from '../services/postsService';
 const queries = require('../database/postsQueries');
 
 const MaxValue = async(num1: number, num2: number) => {
@@ -17,54 +14,56 @@ const AVGValue = async(num1: number, num2: number) => {
 }
 
 const getSingleColumn = <T>(arr: T[], columnName: keyof T) => {
-    return arr.map(item => item[columnName]);
+    const singleColumnWithNulls = arr.map(item => item[columnName])
+    return singleColumnWithNulls.filter(item => item !== null);;
 }
 
-const getSingleColumnValues = (inputColumn: string, data: QueryResult) => {
+const getSingleColumnValues = (columnName: string, data: QueryResult) => {
     if (data.rowCount===null){
         throw new Error("Query is empty");
     }
 
-    return getSingleColumn(data.rows, inputColumn);
+    return getSingleColumn(data.rows, columnName);
 }
 
 
-const calcNumericValue = async(inputColumn: string, data: QueryResult, method: any) => {
-    const columnValues: number[] = getSingleColumnValues(inputColumn, data);
+const calcNumericValue = async(columnName: string, data: QueryResult, method: any) => {
+    const columnValues: number[] = getSingleColumnValues(columnName, data);
     let counter: number = columnValues[0];
     
     for (let item of columnValues) {
         if (typeof item !== 'number'){
-            throw new Error("To coun't min value, numeric column is needed");
+            throw new Error(`To count ${method} value, numeric column is needed`);
         }
-        counter = method(item, counter);
+        counter = await method(item, counter);
     }
 
-    if ((method.name === 'calcAVGValue') && !(data.rowCount===null)) {
+    if ((method.name === 'AVGValue') && !(data.rowCount===null)) {
         return counter/=data.rowCount;
     }
-
     return counter;
 }
 
-const calcMedianValue = async(inputColumn: string, data: QueryResult) => {
-    const columnValues: number[] = getSingleColumnValues(inputColumn, data);
+const calcMedianValue = async(columnName: string, data: QueryResult) => {
+    const columnValues: number[] = getSingleColumnValues(columnName, data);
     
     const sorted = columnValues.sort((a, b) => a - b);
     const middle = Math.floor(sorted.length / 2);
 
     let median: number = 0
+    
     if (sorted.length % 2 === 0) {
-        const median: number = (sorted[middle - 1] + sorted[middle]) / 2;
+        median = (sorted[middle - 1] + sorted[middle]) / 2;
     } else {
-        const median: number = sorted[middle];
+        median= sorted[middle];
+        
     }
 
     return median;
 }
 
-const calcModeValue = async(inputColumn: string, data: QueryResult) => {
-    const columnValues: (number|string)[] = getSingleColumnValues(inputColumn, data);
+const calcModeValue = async(columnName: string, data: QueryResult) => {
+    const columnValues: number[] = getSingleColumnValues(columnName, data);
     
     let valuesEncounters = new Map<string|number, number> ();
 
@@ -80,11 +79,11 @@ const calcModeValue = async(inputColumn: string, data: QueryResult) => {
 }
 
 
-const calcStatistic = async(inputColumn: string, data: QueryResult, method:any, statistic?: string) => {
+const calcStatistic = async(columnName: string, data: QueryResult, method:any, statistic?: string) => {
     if (statistic) {
-        return(method(inputColumn, data, statistic));
+        return await method(columnName, data, statistic);
     }
-    return(method(inputColumn, data));
+    return await method(columnName, data);
 }
 
 module.exports = {

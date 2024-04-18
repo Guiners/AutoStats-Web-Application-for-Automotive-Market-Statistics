@@ -7,7 +7,6 @@ const getHandler = async (req: Request, res: Response, func: any, passBody: bool
     try {
         if (passBody){
             const result: QueryResult = await func(req.body);
-            console.log(result.rows[1])
             res.status(200).json({ rows: result.rows });
 
         } else {
