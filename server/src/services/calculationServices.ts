@@ -1,18 +1,18 @@
-import queryGenerator from "./queryGeneratorService";
-import Filter from '../entities/filterEntity';
+// import queryGenerator from "./queryGeneratorService";
+// import Filter from '../entities/filterEntity';
 import { QueryResult } from 'pg';
-import { getDataFromColumnsPosts, getAllPostsData, getDataFromWherePosts } from '../services/postsService';
+// import { getDataFromColumnsPosts, getAllPostsData, getDataFromWherePosts } from '../services/postsService';
 const queries = require('../database/postsQueries');
 
-const calcMaxValue = async(num1: number, num2: number) => {
+const MaxValue = async(num1: number, num2: number) => {
     return num1 > num2 ? num1 : num2;
 }
 
-const calcMinValue = async(num1: number, num2: number) => {
+const MinValue = async(num1: number, num2: number) => {
     return num1 < num2 ? num1 : num2;
 }
 
-const calcAVGValue = async(num1: number, num2: number) => {
+const AVGValue = async(num1: number, num2: number) => {
     return num1 + num2
 }
 
@@ -80,6 +80,19 @@ const calcModeValue = async(inputColumn: string, data: QueryResult) => {
 }
 
 
-const calcStatistic = async(inputColumn: string[], statistic:any) => {
-    getDataFromWherePosts
+const calcStatistic = async(inputColumn: string, data: QueryResult, method:any, statistic?: string) => {
+    if (statistic) {
+        return(method(inputColumn, data, statistic));
+    }
+    return(method(inputColumn, data));
+}
+
+module.exports = {
+    MaxValue, 
+    MinValue, 
+    AVGValue,
+    calcNumericValue,
+    calcMedianValue,
+    calcModeValue,
+    calcStatistic
 }

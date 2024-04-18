@@ -6,7 +6,6 @@ import { getDataFromColumnsPosts, getAllPostsData, getDataFromWherePosts } from 
 const getHandler = async (req: Request, res: Response, func: any, passBody: boolean) => {
     try {
         if (passBody){
-
             const result: QueryResult = await func(req.body);
             console.log(result.rows[1])
             res.status(200).json({ rows: result.rows });
@@ -25,7 +24,6 @@ const getHandler = async (req: Request, res: Response, func: any, passBody: bool
 const getFilteredColumnsPosts = async (req: Request, res: Response) => {
     await getHandler(req, res, getDataFromColumnsPosts, true)
 }
-
 
 const getDataWherePosts = async (req: Request, res: Response) => {
     await getHandler(req, res, getDataFromWherePosts, true)
