@@ -8,14 +8,13 @@ $signup-button-color: #f7f6e6;
   justify-content: center;
   align-items: center;
   width: auto;
-  height: auto;
+  height: 100vh;
 
   .app-signup__card {
     display: flex;
     padding: 0;
     width: 450px;
     height: auto;
-    margin-top: 70px;
 
     .card__form {
       width: 900px;

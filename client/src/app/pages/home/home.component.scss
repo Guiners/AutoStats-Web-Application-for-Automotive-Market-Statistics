@@ -1,0 +1,31 @@
+.app_navbar {
+  width: 100%;
+}
+
+.app_navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app_navbar li {
+  flex: 1;
+  background: #f7f6e6;
+  text-transform: uppercase;
+  color: #616159;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-weight: bold;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app_navbar li:hover {
+  cursor: pointer;
+  background-color: #d3d3d3;
+}
