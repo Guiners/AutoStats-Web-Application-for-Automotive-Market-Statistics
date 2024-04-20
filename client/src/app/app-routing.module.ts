@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/services/auth.guard';
 import { LoginComponent } from './core/components/login/login.component';
 import { RegisterComponent } from './core/components/register/register.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -17,12 +19,13 @@ const routes: Routes = [
     data: { requiredAuth: false },
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: '',
-  //   component: ,
-  //   data: { requiredAuth: true },
-  //   canActivate: [AuthGuard],
-  // },
+  {
+    path: '',
+    component: HomeComponent,
+    data: { requiredAuth: true },
+    canActivate: [AuthGuard],
+  },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];
 
 @NgModule({
