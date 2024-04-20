@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
-  public passwordIsHide: boolean = true;
-  public registerData: Register = { userName: '', email: '', password: '' };
+  public registerData: Register = { email: '', password: '' };
   public error: string = '';
 
   constructor(
@@ -21,29 +20,27 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
 
-  ngOnInit(): void {}
+  public ngOnInit(): void {}
 
   public register(): void {
     this.error = '';
+
     if (!this.registerForm.valid) {
       this.registerForm.markAllAsTouched();
     } else {
-      this.registerData.userName = this.registerForm.get('name')?.value;
-      this.registerData.email = this.registerForm.get('email')?.value;
-      this.registerData.password = this.registerForm.get('password')?.value;
+      this.registerData = {
+        email: this.registerForm.get('email')?.value,
+        password: this.registerForm.get('password')?.value,
+      };
 
       this.authService.register(this.registerData).subscribe({
         error: (err) => {
-          if (err.status === 400) {
-            this.error = 'Niepoprawny adres email.';
-          }
-          if (err.status === 409) {
+          if (err.status === 401) {
             this.error = 'Użytkownik o takim emailu istnieje!';
           }
         },

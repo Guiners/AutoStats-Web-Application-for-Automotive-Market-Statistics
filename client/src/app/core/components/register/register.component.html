@@ -1,23 +1,10 @@
 <div class="app-signup">
   <mat-card class="app-signup__card">
-    <div class="app-signup__card--inside">
+    <div class="card__form">
       <form [formGroup]="registerForm">
         <h1>Rejestracja</h1>
         <div>
-          <mat-form-field appearance="outline" class="app-signup__card--input">
-            <mat-label>Nazwa użytkownika</mat-label>
-            <input matInput formControlName="name" maxlength="50" />
-            <mat-error
-              *ngIf="
-                registerForm.get('name')?.invalid &&
-                registerForm.get('name')?.touched
-              "
-              >To pole jest wymagane.</mat-error
-            >
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field appearance="outline" class="app-signup__card--input">
+          <mat-form-field appearance="outline" class="card__form--input">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" maxlength="50" />
             <mat-error
@@ -37,20 +24,14 @@
           </mat-form-field>
         </div>
         <div>
-          <mat-form-field appearance="outline" class="app-signup__card--input">
+          <mat-form-field appearance="outline" class="card__form--input">
             <mat-label>Hasło</mat-label>
             <input
               matInput
               formControlName="password"
               maxlength="50"
-              [type]="passwordIsHide ? 'password' : 'text'"
+              type="password"
             />
-            <button
-              class="app-signup__card--password-button"
-              mat-icon-button
-              matSuffix
-              (click)="passwordIsHide = !passwordIsHide"
-            ></button>
             <mat-error
               *ngIf="
                 registerForm.get('password')?.invalid &&
@@ -60,10 +41,10 @@
             >
           </mat-form-field>
         </div>
-        <div *ngIf="error" class="app-signup__card--error-message">
+        <div *ngIf="error" class="card__form--error">
           {{ error }}
         </div>
-        <div class="app-signup__card--register-button">
+        <div class="card__form--button">
           <button (click)="register()">ZAREJESTRUJ SIĘ</button>
         </div>
       </form>

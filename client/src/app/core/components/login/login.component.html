@@ -1,10 +1,10 @@
 <div class="app-signin">
   <mat-card class="app-signin__card">
-    <div class="app-signin__card--login">
+    <div class="card__form">
       <form [formGroup]="loginForm">
         <h1>Logowanie</h1>
         <div>
-          <mat-form-field appearance="outline" class="app-signin__card--input">
+          <mat-form-field appearance="outline" class="card__form--input">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" maxlength="50" />
             <mat-error
@@ -17,20 +17,14 @@
           </mat-form-field>
         </div>
         <div>
-          <mat-form-field appearance="outline" class="app-signin__card--input">
+          <mat-form-field appearance="outline" class="card__form--input">
             <mat-label>Hasło</mat-label>
             <input
               matInput
               formControlName="password"
               maxlength="50"
-              [type]="passwordIsHide ? 'password' : 'text'"
+              type="password"
             />
-            <button
-              class="app-signin__card--password-button"
-              mat-icon-button
-              matSuffix
-              (click)="passwordIsHide = !passwordIsHide"
-            ></button>
             <mat-error
               *ngIf="
                 loginForm.get('password')?.invalid &&
@@ -40,12 +34,16 @@
             >
           </mat-form-field>
         </div>
-        <div *ngIf="error" class="app-signin__card--error-message">
+        <div *ngIf="error" class="card__form--error">
           {{ error }}
         </div>
-        <div class="app-signin__card--login-button">
+        <div class="card__form--button">
           <button (click)="login()">ZALOGUJ SIĘ</button>
         </div>
+        <p class="card__form--register">
+          Nie masz konta?
+          <a routerLink="/register">Zarejestruj się</a>
+        </p>
       </form>
     </div>
   </mat-card>

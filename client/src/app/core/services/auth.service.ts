@@ -27,11 +27,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   public register(registerData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/register`, registerData);
+    return this.http.post<any>(`${this.apiURL}/user/register`, registerData);
   }
 
   public login(loginData: Login): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/login`, loginData).pipe(
+    return this.http.post<any>(`${this.apiURL}/user/login`, loginData).pipe(
       map((data) => {
         const token = { token: data.token } as Token;
         const userInfo = this.jwtService.decodeToken(

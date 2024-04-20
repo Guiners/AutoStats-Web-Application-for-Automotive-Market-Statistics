@@ -8,16 +8,17 @@ $register-button-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: auto;
+  height: auto;
 
   .app-signin__card {
     display: flex;
     padding: 0;
     width: 450px;
-    height: 500px;
+    height: auto;
+    margin-top: 70px;
 
-    .app-signin__card--login {
+    .card__form {
       width: 450px;
       display: flex;
       flex-direction: column;
@@ -36,18 +37,12 @@ $register-button-color: white;
         position: relative;
       }
 
-      .app-signin__card--password-button {
-        outline: none;
-        background: transparent;
-        border: 1px solid transparent;
-      }
-
-      .app-signin__card--input {
+      .card__form--input {
         width: 370px;
         padding-bottom: 10px;
       }
 
-      .app-signin__card--error-message {
+      .card__form--error {
         width: 340px;
         padding: 15px;
         font-size: 14px;
@@ -57,7 +52,15 @@ $register-button-color: white;
         text-align: center;
       }
 
-      .app-signin__card--login-button {
+      .card__form--register {
+        width: 340px;
+        padding: 15px;
+        font-size: 14px;
+        color: $signin-text-main-color;
+        text-align: center;
+      }
+
+      .card__form--button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -72,17 +75,8 @@ $register-button-color: white;
           font-weight: bold;
           font-size: 14px;
           cursor: pointer;
-          transition: 0.5s ease-in-out;
           background-color: $signin-register-card-background-color;
           color: $signin-text-main-color;
-
-          &:hover {
-            background-color: rgba($signin-register-card-background-color, 0.9);
-            transform: scale(1.01);
-            -webkit-box-shadow: -4px 6px 18px -5px rgba(161, 165, 206, 1);
-            -moz-box-shadow: -4px 6px 18px -5px rgba(161, 165, 206, 1);
-            box-shadow: -4px 6px 18px -5px rgba(161, 165, 206, 1);
-          }
         }
       }
     }

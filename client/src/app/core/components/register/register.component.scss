@@ -13,11 +13,11 @@ $signup-button-color: #f7f6e6;
   .app-signup__card {
     display: flex;
     padding: 0;
-    width: 900px;
+    width: 450px;
     height: auto;
     margin-top: 70px;
 
-    .app-signup__card--inside {
+    .card__form {
       width: 900px;
       display: flex;
       flex-direction: column;
@@ -36,19 +36,13 @@ $signup-button-color: #f7f6e6;
         position: relative;
       }
 
-      .app-signup__card--password-button {
-        outline: none;
-        background: transparent;
-        border: 1px solid transparent;
-      }
-
-      .app-signup__card--input {
-        width: 450px;
+      .card__form--input {
+        width: 370px;
         padding-bottom: 10px;
       }
 
-      .app-signup__card--error-message {
-        width: 450px;
+      .card__form--error {
+        width: 340px;
         padding: 15px;
         font-size: 14px;
         background-color: #f34646;
@@ -57,7 +51,7 @@ $signup-button-color: #f7f6e6;
         text-align: center;
       }
 
-      .app-signup__card--register-button {
+      .card__form--button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -72,17 +66,8 @@ $signup-button-color: #f7f6e6;
           font-weight: bold;
           font-size: 14px;
           cursor: pointer;
-          transition: 0.5s ease-in-out;
           background-color: $signup-button-color;
           color: $signup-text-main-color;
-
-          &:hover {
-            background-color: rgba($signup-button-color, 0.9);
-            transform: scale(1.01);
-            -webkit-box-shadow: -4px 6px 18px -5px rgba(161, 165, 206, 1);
-            -moz-box-shadow: -4px 6px 18px -5px rgba(161, 165, 206, 1);
-            box-shadow: -4px 6px 18px -5px rgba(161, 165, 206, 1);
-          }
         }
       }
     }
