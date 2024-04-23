@@ -1,4 +1,4 @@
-export default interface searchParameters {
+export interface searchParameters {
     Brand?: string;
     Model?: string;
     Generation?: string;
@@ -19,8 +19,7 @@ export default interface searchParameters {
 } 
 
 
-//
-const searchMap = new Map<string, number|string|string[]>(
+export const searchMap = new Map<string, string|string[]>(
     [
         ["Brand", "Brand"], 
         ["Model", "Model"],
@@ -37,8 +36,8 @@ const searchMap = new Map<string, number|string|string[]>(
     ]
 );
 
-// pozycje w tabeli
-const searchMap1 = new Map<string, number|number[]>(
+
+export const searchMap1 = new Map<string, number|number[]>(
     [
         ["Brand", 1], 
         ["Model", 2],
