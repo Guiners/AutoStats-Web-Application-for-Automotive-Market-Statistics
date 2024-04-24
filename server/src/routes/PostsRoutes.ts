@@ -8,6 +8,10 @@ router.route('/')
     .get(PostsController.getAllPosts)
     // .get(jwtAuth.auth, PostsController.getAllPosts)
 
+router.route('/valuesFromQuery')
+    .get(PostsController.getInputColumnsAndInputValuesFromQuery)
+    // .get(jwtAuth.auth, PostsController.getFilteredPosts)
+
 router.route('/filter')
     .get(PostsController.getFilteredColumnsPosts)
     // .get(jwtAuth.auth, PostsController.getFilteredPosts)
@@ -27,5 +31,7 @@ router.route('/filter/distinctFuelType')
 router.route('/filter/distinctGearBox')
     .get(PostsController.getGearBox)
     // .get(jwtAuth.auth, PostsController.getFilteredPosts)
+
+
 
 module.exports = router;

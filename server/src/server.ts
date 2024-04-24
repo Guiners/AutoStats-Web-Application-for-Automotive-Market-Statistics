@@ -14,7 +14,7 @@ app.use(express.json());
 app.use('/user', require('./routes/LoginRoutes'));
 app.use('/posts', require('./routes/PostsRoutes'));
 app.use('/calc', require('./routes/CalcRoutes'));
-
+app.use('/favourite', require('./routes/FavouriteRoutes'));
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

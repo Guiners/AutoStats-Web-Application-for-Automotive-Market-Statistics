@@ -1,12 +1,29 @@
-const getAllFavouriteItem: string = `SELECT "Id", "Brand", "Model", "Generation", "CapacityHigh", "CapacityLow", "HorsepowerHigh", "HorsepowerLow", "MilageHigh", "MilageLow", "Fueltype", "Gearbox", "ProductionYearHigh", "ProductionYearLow", "PriceHigh", "PriceLow", "Segment", "DriveType"
-FROM public."Queries";`
+const getAllQueriesItem: string = `SELECT "Brand", "Model", "Generation", "CapacityLow", "CapacityHigh", "HorsepowerLow", "HorsepowerHigh", "MilageLow", "MilageHigh", "Fueltype", "Gearbox", "ProductionYearLow", "ProductionYearHigh", "PriceLow", "PriceHigh", "Segment", "DriveType"
+FROM public."Queries" WHERE "Id" = `
 
-const columnsFavouriteTable: string[] = ["Id", "Brand", "Model", "Generation", "CapacityHigh", "CapacityLow", "HorsepowerHigh", "HorsepowerLow", "MilageHigh", "MilageLow", "Fueltype", "Gearbox", "ProductionYearHigh", "ProductionYearLow", "PriceHigh", "PriceLow", "Segment", "DriveType"]
+const columnsQueriesTable: string[] = ["Brand", "Model", "Generation", "CapacityLow", "CapacityHigh", "HorsepowerLow", "HorsepowerHigh", "MilageLow", "MilageHigh", "Fueltype", "Gearbox", "ProductionYearLow", "ProductionYearHigh", "PriceLow", "PriceHigh", "Segment", "DriveType"]
 
-const insertDataToFavouriteTable: string = `INSERT INTO public."Queries"( "Id", "Brand", "Model", "Generation", "CapacityLow", "CapacityHigh", "HorsepowerLow", "HorsepowerHigh", "MilageLow", "MilageHigh", "Fueltype", "Gearbox", "ProductionYearLow", "ProductionYearHigh", "PriceLow", "PriceHigh", "Segment", "DriveType") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
+const insertDataToQueriesTable: string = `INSERT INTO public."Queries"( "Brand", "Model", "Generation", "CapacityLow", "CapacityHigh", "HorsepowerLow", "HorsepowerHigh", "MilageLow", "MilageHigh", "Fueltype", "Gearbox", "ProductionYearLow", "ProductionYearHigh", "PriceLow", "PriceHigh", "Segment", "DriveType") VALUES `
+
+const columnsFavouriteTable: string[] = ["QueriesFK", "UsersEmailFK", "Name"]
+
+const insertDataToFavouriteTable: string = `INSERT INTO public."FavouriteQueries"( "QueriesFK", "UsersEmailFK", "Name") VALUES`
+
+const deleteFromFavouriteTableByQueriesFK: string = `DELETE FROM public."FavouriteQueries" WHERE "QueriesFK" = `
+
+const getUserFavourites: string = `SELECT "QueriesFK" FROM public."FavouriteQueries" WHERE "UsersEmailFK" = `
+
 
 module.exports = {
-    getAllFavouriteItem,
+    getUserFavourites,
+    deleteFromFavouriteTableByQueriesFK,
+    getAllQueriesItem,
+    columnsQueriesTable,
+    insertDataToQueriesTable,
     columnsFavouriteTable,
     insertDataToFavouriteTable
 }
+
+
+
+
