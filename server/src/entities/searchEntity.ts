@@ -8,27 +8,25 @@ export interface favouriteParameters {
 
 } 
 
-
-
-// export interface searchParameters {
-//     Brand?: string;
-//     Model?: string;
-//     Generation?: string;
-//     CapacityHigh?: string;
-//     CapacityLow?: string;
-//     HorsepowerHigh?: string;
-//     HorsepowerLow?: string;
-//     MilageHigh?: string;
-//     MilageLow?: string;
-//     Fueltype?: string;
-//     Gearbox?: string;
-//     ProductionYearHigh?: string;
-//     ProductionYearLow?: string;
-//     PriceHigh?: string;
-//     PriceLow?: string;
-//     Segment?: string;
-//     DriveType?: string;
-// } 
+export interface searchParameters {
+    Brand: string|null;
+    Model: string|null;
+    Generation: string|null;
+    CapacityLow: number;
+    CapacityHigh: number;
+    HorsepowerLow: number;
+    HorsepowerHigh: number;
+    MilageLow: number;
+    MilageHigh: number;
+    Fueltype: string|null;
+    Gearbox: string|null;
+    ProductionYearLow: number;
+    ProductionYearHigh: number;
+    PriceLow: number;
+    PriceHigh: number;
+    Segment: string|null;
+    DriveType: string|null;
+} 
 
 
 // export const searchMap = new Map<string, string|string[]>(

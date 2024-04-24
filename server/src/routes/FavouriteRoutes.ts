@@ -9,14 +9,17 @@ router.route('/add')
     .post(FavouriteController.addToFavourite)
     // .get(jwtAuth.auth, FavouriteController.addToFavourite)
 
-
-
 router.route('/remove') 
     .delete(FavouriteController.removeFromFavourite)
-     // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
+    // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
 
+router.route('/getUserFavId') 
+    .get(FavouriteController.getUsersFavouriteQueriesIds)
+    // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
 
-
+router.route('/getQueryFromId') 
+    .get(FavouriteController.getQueryFromFavouriteById)
+    // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
 
     
 module.exports = router;

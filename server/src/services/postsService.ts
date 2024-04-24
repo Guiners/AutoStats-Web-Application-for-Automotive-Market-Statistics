@@ -1,6 +1,8 @@
 import pool from '../database/dbConfing'
 import Filter from '../entities/filterEntity';
-import queryGenerator from "./queryGeneratorService";
+import { queryGenerator, transformSearchInToQuery } from "./queryGeneratorService";
+import { queryFromFavourite } from "./favouriteService";
+
 import { QueryResult } from 'pg';
 import { CarData, BrandModelsGenerations } from '../entities/brandParametersEntity'
 const queries = require('../database/postsQueries');
@@ -67,7 +69,7 @@ const getDataFromColumnsPosts = async(data: Filter) => {
     return getQueryResponse(query);
 }
 
-const getDataFromWherePosts = async(data: Filter) => {
+const getDataFromWherePosts = async(data: any) => {
     const query: string = await queryGenerator(data.inputColumns, queries.columnsPostsTable, data.inputValues);
     return getQueryResponse(query);
 }

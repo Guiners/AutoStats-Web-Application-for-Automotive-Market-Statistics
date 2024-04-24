@@ -1,3 +1,5 @@
+import { searchParameters } from '../entities/searchEntity'
+
 
 const queryGenerator = async(inputColumns: string[], tableColumns: string[], inputValues?: (string|number|number[])[]) => {
     
@@ -35,15 +37,98 @@ const queryGenerator = async(inputColumns: string[], tableColumns: string[], inp
     return query;
 }
 
+const transformSearchInToQuery = (inpust:any) => {
+    const carData = {
+    "Brand": "",
+    "Model": "",
+    "Generation": "",
+    "Capacity": [0,0],
+    "Horsepower": [0,0],
+    "Milage": [0,0],
+    "Fueltype": "",
+    "Gearbox": "",
+    "ProductionYear": [0,0],
+    "Price": [0,0],
+    "Segment": null,
+    "DriveType": null
+    };
+    
+    for (let obj of inpust) {
+        for (let [key, value] of Object.entries(obj)) {
+            switch (key) {
+                case "CapacityLow":
+                    carData["Capacity"][0] = Number(value);
+                    break;
+                case "CapacityHigh":
+                    carData["Capacity"][1] = Number(value);
+                    break;
+                case "HorsepowerLow":
+                    carData["Horsepower"][0] = Number(value);
+                    break;
+                case "HorsepowerHigh":
+                    carData["Horsepower"][1] = Number(value);
+                    break;
+                case "MilageLow":
+                    carData["Milage"][0] = Number(value);
+                    break;
+                case "MilageHigh":
+                    carData["Milage"][1] = Number(value);
+                    break;
+                case "ProductionYearLow":
+                    carData["ProductionYear"][0] = Number(value);
+                    break;
+                case "ProductionYearHigh":
+                    carData["ProductionYear"][1] = Number(value);
+                    break;
+                case "PriceLow":
+                    carData["Price"][0] = Number(value);
+                    break;
+                case "PriceHigh":
+                    carData["Price"][1] = Number(value);
+                    break;
+                case "Brand":
+                    carData["Brand"] = String(value);
+                    break;
+                case "Model":
+                    carData["Model"] = String(value);
+                    break;
+                case "Generation":
+                    carData["Generation"] = String(value);
+                    break;
+                case "Fueltype":
+                    carData["Fueltype"] = String(value);
+                    break;
+                case "Gearbox":
+                    carData["Gearbox"] = String(value);
+                    break;
+                case "Segment":
+                    carData["Segment"] = null;
+                    break;
+                case "DriveType":
+                    carData["DriveType"] = null;
+                    break;
+            }
+        
+        }
+    }
+    const inputColumns: string[] = [];
+    const inputValues: (string|null|number[])[] = [];
+
+    for (let [key, value] of Object.entries(carData)) {
+        if (value === 'null' || value === null) {
+            continue
+        }
+
+        inputColumns.push(key);
+        inputValues.push(value);
+    }
+    // console.log(inputColumns, inputValues)
+    return {"inputColumns": inputColumns, "inputValues": inputValues}
+}
 
  const checkIfColumnInTable = async(inputColumns: string[], tableColumns: string[]) => {
-    
     for (let column of inputColumns) {
-        // console.log(column)
-        // console.log(tableColumns)
         if (!tableColumns.includes(column)) {
-            // console.log(column)
-            // console.log(tableColumns)
             throw new Error('Column name does not exist in table');     
         }
     }
@@ -105,4 +190,4 @@ const addSingleQuotes = async(arr: (string|number|number[])[]) => {
 }
 
 
-export default queryGenerator;
+export {queryGenerator, transformSearchInToQuery};

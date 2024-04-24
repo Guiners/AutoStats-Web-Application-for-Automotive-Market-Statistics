@@ -10,24 +10,21 @@ const addToQueries = (data: favouriteParameters) => {
         dataoutput.push(`'${element}'`);
     })
 
-    const insertDataToQueriesTable: string = `INSERT INTO public."Queries"( "Brand", "Model", "Generation", "CapacityLow", "CapacityHigh", "HorsepowerLow", "HorsepowerHigh", "MilageLow", "MilageHigh", "Fueltype", "Gearbox", "ProductionYearLow", "ProductionYearHigh", "PriceLow", "PriceHigh", "Segment", "DriveType") VALUES (${dataoutput});`;
-    
-    return insertDataToQueriesTable;
+    const query: string = queriesFavourite.insertDataToQueriesTable + (`(${dataoutput})`);
+    return query;
 }
-
 
 const findId = async(data: favouriteParameters) => {
     const columns: string[] = queriesFavourite.columnsQueriesTable;
     const whereQuery: string[] = [];
     let whereParameter: string = ''
 
-        for (let i=0; i<columns.length ; i++) {
-            whereParameter = `"${columns[i]}" = '${data.inputValues[i]}'`;
-            whereQuery.push(whereParameter);
-        } 
+    for (let i=0; i<columns.length ; i++) {
+        whereParameter = `"${columns[i]}" = '${data.inputValues[i]}'`;
+        whereQuery.push(whereParameter);
+    } 
 
-        const query: string = `SELECT "Id" FROM public."Queries" WHERE ${whereQuery.join(' AND ')}`;
-
+    const query: string = `SELECT "Id" FROM public."Queries" WHERE ${whereQuery.join(' AND ')}`;
     const response: QueryResult = await getQueryResponse(query);
 
     return response;
@@ -35,8 +32,7 @@ const findId = async(data: favouriteParameters) => {
 
 const addToFavouriteQueries = async(data: favouriteParameters, id: number) => {
     const dataOutput: (string|number)[] = [`'${id}'`, `'${data.userEmail}'`, `'${data.queryName}'`]
-
-    const query: string = `INSERT INTO public."FavouriteQueries"("QueriesFK", "UsersEmailFK", "Name") VALUES (${dataOutput});`;
+    const query: string = queriesFavourite.insertDataToFavouriteTable +(`(${dataOutput})`);
 
     const response: QueryResult = await getQueryResponse(query);
 
@@ -48,7 +44,6 @@ const getQueryResponse = async(query: string) => {
     const queryResponse: QueryResult = await client.query(query);
     return queryResponse;
 }
-
 
 const addQueryToFavourite = async (data: favouriteParameters) => {
     const query : string = await addToQueries(data);
@@ -66,14 +61,36 @@ const addQueryToFavourite = async (data: favouriteParameters) => {
 
 const removeQueryFromFavourite = async (QueriesFK: number) => {
     let query: string = queriesFavourite.deleteFromFavouriteTableByQueriesFK;
-    console.log(QueriesFK)
-    query += `'${QueriesFK}'`
-    const response: QueryResult =  await getQueryResponse(query);
+    query += `'${QueriesFK}'`;
+    const response: QueryResult = await getQueryResponse(query);
     return response;
 }
 
+const usersFavouriteQueriesIds = async (email: string) => {
+    let query: string = queriesFavourite.getUserFavourites;
+    query += `'${email}'`;
+    const response: QueryResult = await getQueryResponse(query);
+    const output: { [key: string]: number[] } = { 'QueriesFK': [] };
+    if (response.rows) {
+        for (let i of response.rows) {
+            if (i && i.QueriesFK !== undefined) {
+                output['QueriesFK'].push(i.QueriesFK);
+            }
+        }
+    }
+    return output;
+}
+
+const queryFromFavourite = async (QueriesFK: number) => {
+    let query: string = queriesFavourite.getAllQueriesItem;
+    query += `'${QueriesFK}'`;
+    const response: QueryResult = await getQueryResponse(query);
+    return response;
+}
 
 export {
+    queryFromFavourite,
+    usersFavouriteQueriesIds,
     addQueryToFavourite,
     removeQueryFromFavourite
 }

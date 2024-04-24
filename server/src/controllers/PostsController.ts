@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 import { getDistinctFuelorGearBox, getDataFromColumnsPosts, getAllPostsData, getDataFromWherePosts, getDistinctBrandModelGen, getBrandModelsGenerations, getDistinctFuelType, getDistinctGearBox  } from '../services/postsService';
-import { CarData, BrandModelsGenerations } from '../entities/brandParametersEntity'
-
+import { transformSearchInToQuery } from '../services/queryGeneratorService'
+// import { CarData, BrandModelsGenerations } from '../entities/brandParametersEntity'
 
 
 const getDistrictHandler = async(req: Request, res: Response, func: any, label: string) => {
@@ -36,6 +36,18 @@ const getHandler = async (req: Request, res: Response, func: any, passBody: bool
     }
 }
 
+const getInputColumnsAndInputValuesFromQuery = async (req: Request, res: Response) => {
+    try {
+        // console.log(req.body.query);
+        const data = await transformSearchInToQuery(req.body.query);
+
+        res.status(200).json({ data });
+
+    } catch (error) {
+        return res.status(401).json({ "message": `${error}`});
+    }
+}
+
 
 const getFilteredColumnsPosts = async (req: Request, res: Response) => {
     await getHandler(req, res, getDataFromColumnsPosts, true)
@@ -62,4 +74,4 @@ const getGearBox = async (req: Request, res: Response) => {
 }
 
 
-module.exports = { getFilteredColumnsPosts, getAllPosts, getDataWherePosts, getBrandModelGen, getFuelType, getGearBox};
+module.exports = { getFilteredColumnsPosts, getAllPosts, getDataWherePosts, getBrandModelGen, getFuelType, getGearBox, getInputColumnsAndInputValuesFromQuery};
