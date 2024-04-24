@@ -7,5 +7,48 @@
       <li>Usuń wyszukiwanie</li>
       <li>Oblicz</li>
     </ul>
-  </mat-grid-tile></mat-grid-list
->
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="5" [rowspan]="2">
+    <mat-form-field appearance="outline">
+      <mat-label>Marka pojazdu</mat-label>
+      <mat-select
+        [disableOptionCentering]="true"
+        [(value)]="selectedBrand"
+        (selectionChange)="onBrandChange($event.value)"
+      >
+        <mat-option *ngFor="let brand of brands" [value]="brand">{{
+          brand
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Model pojazdu</mat-label>
+      <mat-select
+        [disableOptionCentering]="true"
+        [(value)]="selectedModel"
+        [disabled]="!models.length"
+        (selectionChange)="onModelChange($event.value)"
+      >
+        <mat-option *ngFor="let model of models" [value]="model">{{
+          model
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Generacja</mat-label>
+      <mat-select
+        [disableOptionCentering]="true"
+        [disabled]="!generations.length"
+        [(value)]="selectedGeneration"
+      >
+        <mat-option
+          *ngFor="let generation of generations"
+          [value]="generation"
+          >{{ generation }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>

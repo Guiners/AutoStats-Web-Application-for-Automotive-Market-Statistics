@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 
 const MATERIAL_MODULES = [
   MatIconModule,
@@ -17,6 +18,7 @@ const MATERIAL_MODULES = [
   MatGridListModule,
   MatBottomSheetModule,
   MatListModule,
+  MatSelectModule,
 ];
 
 @NgModule({
