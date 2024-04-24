@@ -1,0 +1,575 @@
+{
+	"info": {
+		"_postman_id": "7ea8a714-9c4f-4cc9-b430-b4c980fc14bf",
+		"name": "Zespołowy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34296965"
+	},
+	"item": [
+		{
+			"name": "user/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"test123\",\r\n  \"password\": \"test123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"test123\",\r\n  \"password\": \"test123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Id\", \"Brand\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/filter only columns",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Id\", \"Brand\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/filter/where string",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Brand\", \"Model\"],\r\n    \"inputValues\": [\"bmw\", \"5gt\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/filter/where",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"filter",
+						"where"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calc/avg",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Brand\"],\r\n    \"inputValues\": [\"bmw\"],\r\n    \"columnToCount\": \"Horsepower\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/calc/avg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"calc",
+						"avg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calc/min",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Brand\"],\r\n    \"inputValues\": [\"bmw\"],\r\n    \"columnToCount\": \"Horsepower\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/calc/min",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"calc",
+						"min"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calc/max",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Brand\"],\r\n    \"inputValues\": [\"bmw\"],\r\n    \"columnToCount\": \"Horsepower\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/calc/max",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"calc",
+						"max"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calc/median",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Brand\"],\r\n    \"inputValues\": [\"bmw\"],\r\n    \"columnToCount\": \"Horsepower\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/calc/median",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"calc",
+						"median"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calc/mode",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Brand\"],\r\n    \"inputValues\": [\"bmw\"],\r\n    \"columnToCount\": \"Fueltype\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/calc/mode",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"calc",
+						"mode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/filter/where number[]",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"inputColumns\": [\"Brand\", \"Model\", \"Horsepower\"],\r\n    \"inputValues\": [\"bmw\", \"5gt\", [3, 200]]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/filter/where",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"filter",
+						"where"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/filter/distinctModel",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/posts/filter/distinctModel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"filter",
+						"distinctModel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/filter/distinctGearBox",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/posts/filter/distinctGearBox",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"filter",
+						"distinctGearBox"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/filter/distinctFuelType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/posts/filter/distinctFuelType",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"filter",
+						"distinctFuelType"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favourite/add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"userEmail\": \"email1@gmail.com\",\r\n    \"queryName\": \"Queryname2\",\r\n    \"inputColumns\": [\"Brand\", \"Model\", \"Generation\", \"CapacityLow\", \"CapacityHigh\", \"HorsepowerLow\", \"HorsepowerHigh\", \"MilageLow\", \"MilageHigh\", \"Fueltype\", \"Gearbox\", \"ProductionYearLow\", \"ProductionYearHigh\", \"PriceLow\", \"PriceHigh\", \"Segment\", \"DriveType\"],\r\n    \"inputValues\": [\"nissan\", \"null\", null, 0, 9999, 0, 9999, 0, 99999, null, null, 0, 999999, 0, 99999999, null, null]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/favourite/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"favourite",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favourite/remove",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"Id\": \"20\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/favourite/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"favourite",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favourite/getUserFavId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userEmail\": \"email1@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/favourite/getUserFavId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"favourite",
+						"getUserFavId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favourite/getQueryFromId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": 19\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/favourite/getQueryFromId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"favourite",
+						"getQueryFromId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts/valuesFromQuery",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": [{\r\n    \"Brand\": \"opel\",\r\n    \"Model\": \"null\",\r\n    \"Generation\": \"null\",\r\n    \"CapacityLow\": 0,\r\n    \"CapacityHigh\": 10,\r\n    \"HorsepowerLow\": 0,\r\n    \"HorsepowerHigh\": 10,\r\n    \"MilageLow\": 0,\r\n    \"MilageHigh\": 10,\r\n    \"Fueltype\": \"null\",\r\n    \"Gearbox\": \"null\",\r\n    \"ProductionYearLow\": 0,\r\n    \"ProductionYearHigh\": 10,\r\n    \"PriceLow\": 0,\r\n    \"PriceHigh\": 10,\r\n    \"Segment\": \"null\",\r\n    \"DriveType\": \"null\"\r\n  }]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts/valuesFromQuery",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts",
+						"valuesFromQuery"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
