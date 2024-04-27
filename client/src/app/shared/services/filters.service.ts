@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { ICarDetails } from '../models/car.model';
+import { IGearboxRes } from '../models/gear-box.model';
+import { IFuelTypeRes } from '../models/fuel-type.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,15 @@ export class FiltersService {
     );
   }
 
-  public getGearBox(): Observable<any> {
-    return this.http.get<any>(`${this.apiURL}/posts/filter/distinctGearBox`);
+  public getGearboxes(): Observable<IGearboxRes> {
+    return this.http.get<IGearboxRes>(
+      `${this.apiURL}/posts/filter/distinctGearBox`
+    );
+  }
+
+  public getFuelTypes(): Observable<IFuelTypeRes> {
+    return this.http.get<IFuelTypeRes>(
+      `${this.apiURL}/posts/filter/distinctFuelType`
+    );
   }
 }

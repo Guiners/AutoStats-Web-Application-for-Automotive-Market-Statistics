@@ -8,6 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const MATERIAL_MODULES = [
   MatIconModule,
@@ -19,6 +20,7 @@ const MATERIAL_MODULES = [
   MatBottomSheetModule,
   MatListModule,
   MatSelectModule,
+  MatToolbarModule,
 ];
 
 @NgModule({

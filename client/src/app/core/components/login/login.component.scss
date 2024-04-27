@@ -1,7 +1,6 @@
 $signin-background-color: #fafafa;
-$signin-register-card-background-color: #f7f6e6;
 $signin-text-main-color: #616159;
-$register-button-color: white;
+$button-color: #f7f6e6;
 
 .app-signin {
   background-color: $signin-background-color;
@@ -74,7 +73,7 @@ $register-button-color: white;
           font-weight: bold;
           font-size: 14px;
           cursor: pointer;
-          background-color: $signin-register-card-background-color;
+          background-color: $button-color;
           color: $signin-text-main-color;
         }
       }

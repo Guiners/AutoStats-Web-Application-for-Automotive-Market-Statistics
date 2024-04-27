@@ -1,31 +1,30 @@
-.app_navbar {
-  width: 100%;
-}
+$home-background-color: #fafafa;
 
-.app_navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
+.app-home {
+  background-color: $home-background-color;
   display: flex;
-  flex-direction: column;
-}
-
-.app_navbar li {
-  flex: 1;
-  background: #f7f6e6;
-  text-transform: uppercase;
-  color: #616159;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-weight: bold;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  width: auto;
+  height: calc(100vh - 50px);
 }
 
-.app_navbar li:hover {
-  cursor: pointer;
-  background-color: #d3d3d3;
+.filters-form__card {
+  display: flex;
+  width: 90vw;
+  height: 40%;
+  margin-top: 80px;
+
+  form {
+    width: 100%;
+  }
+
+  .card__inputs-container {
+    display: flex;
+    justify-content: space-between;
+
+    &--input {
+      flex: 1;
+      margin: 0 10px;
+    }
+  }
 }
