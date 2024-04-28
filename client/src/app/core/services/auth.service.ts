@@ -49,4 +49,16 @@ export class AuthService {
     }
     return false;
   }
+
+  public getUserEmail(): string {
+    const localStorageToken = localStorage.getItem(LocalStorageConsts.TOKEN);
+
+    if (localStorageToken) {
+      const token = JSON.parse(localStorageToken) as Token;
+      const userInfo = this.jwtService.decodeToken(token.token);
+      return userInfo.name;
+    }
+
+    return '';
+  }
 }

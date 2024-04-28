@@ -67,14 +67,13 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
-
         <mat-form-field
           class="card__inputs-container--input"
           appearance="outline"
         >
           <mat-label>Rodzaj paliwa</mat-label>
           <mat-select
-            formControlName="fueltype"
+            formControlName="fuelType"
             [disableOptionCentering]="true"
           >
             <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{
@@ -99,6 +98,7 @@
         >
           <mat-label>Przebieg od</mat-label>
           <input formControlName="milageLow" matInput type="number" min="0" />
+          <span matSuffix>km</span>
         </mat-form-field>
 
         <mat-form-field
@@ -107,6 +107,7 @@
         >
           <mat-label>Przebieg do</mat-label>
           <input formControlName="milageHigh" matInput type="number" min="0" />
+          <span matSuffix>km</span>
         </mat-form-field>
 
         <mat-form-field
@@ -120,6 +121,7 @@
             type="number"
             min="0"
           />
+          <span matSuffix>KM</span>
         </mat-form-field>
 
         <mat-form-field
@@ -133,6 +135,7 @@
             type="number"
             min="0"
           />
+          <span matSuffix>KM</span>
         </mat-form-field>
 
         <mat-form-field
@@ -164,6 +167,7 @@
         >
           <mat-label>Cena od</mat-label>
           <input formControlName="priceLow" matInput type="number" min="0" />
+          <span matSuffix>PLN</span>
         </mat-form-field>
 
         <mat-form-field
@@ -172,6 +176,7 @@
         >
           <mat-label>Cena do</mat-label>
           <input formControlName="priceHigh" matInput type="number" min="0" />
+          <span matSuffix>PLN</span>
         </mat-form-field>
 
         <mat-form-field
@@ -215,6 +220,10 @@
           <mat-label>Lokalizacja</mat-label>
           <mat-select [disabled]="true"> </mat-select>
         </mat-form-field>
+      </div>
+      <div class="card__buttons-container">
+        <button (click)="clearForm()">Wyczyść filtry</button>
+        <button (click)="addToFavourite()">Dodaj do ulubionych</button>
       </div>
     </form>
   </mat-card>

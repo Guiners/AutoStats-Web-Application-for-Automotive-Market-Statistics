@@ -1,17 +1,19 @@
 $home-background-color: #fafafa;
+$button-color: #f7f6e6;
+$text-color: #616159;
 
 .app-home {
   background-color: $home-background-color;
   display: flex;
   justify-content: center;
   width: auto;
-  height: calc(100vh - 50px);
+  height: 100vh;
 }
 
 .filters-form__card {
   display: flex;
   width: 90vw;
-  height: 40%;
+  height: 36%;
   margin-top: 80px;
 
   form {
@@ -25,6 +27,27 @@ $home-background-color: #fafafa;
     &--input {
       flex: 1;
       margin: 0 10px;
+    }
+  }
+
+  .card__buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-right: 15px;
+
+    button {
+      border: none;
+      outline: none;
+      padding: 16px 0;
+      margin-left: 5px;
+      border-radius: 20px;
+      width: 180px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: $button-color;
+      color: $text-color;
     }
   }
 }
