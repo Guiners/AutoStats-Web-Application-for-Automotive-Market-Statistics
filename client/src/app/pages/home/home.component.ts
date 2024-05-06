@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { StatsFieldConst, StatsTypeConst } from 'src/app/consts/stats-consts';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ICarBrand, ICarDetails } from 'src/app/shared/models/car.model';
 import { IAddFavouriteReq } from 'src/app/shared/models/favourite.model';
 import { IFuelTypeRes } from 'src/app/shared/models/fuel-type.model';
 import { IGearboxRes } from 'src/app/shared/models/gear-box.model';
+import { ICalcStatReq, IStatType } from 'src/app/shared/models/stat.model';
 import { FavouritesService } from 'src/app/shared/services/favourites.service';
 import { FiltersService } from 'src/app/shared/services/filters.service';
+import { StatService } from 'src/app/shared/services/stat.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +18,11 @@ import { FiltersService } from 'src/app/shared/services/filters.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  public error: string = '';
+  public result: string = '';
+
   public filtersForm: FormGroup;
+  public statsForm: FormGroup;
 
   public brands: string[] = [];
   public models: string[] = [];
@@ -27,33 +34,42 @@ export class HomeComponent implements OnInit {
   public selectedModel: string = '';
   public selectedGeneration: string = '';
 
+  public statsType: IStatType[] = StatsTypeConst;
+  public statsField: IStatType[] = StatsFieldConst;
+
   private carBrands: ICarBrand = {};
 
   constructor(
     private filtersService: FiltersService,
     private formBuilder: FormBuilder,
     private favouritesService: FavouritesService,
+    private statService: StatService,
     private authService: AuthService,
     private snackBar: MatSnackBar
   ) {
     this.filtersForm = this.formBuilder.group({
-      brand: [{ value: '', disabled: !this.brands.length }],
-      model: [{ value: '', disabled: !this.models.length }],
-      generation: [{ value: '', disabled: !this.generations.length }],
-      capacityLow: [''],
-      capacityHigh: [''],
-      horsepowerLow: [''],
-      horsepowerHigh: [''],
-      milageLow: [''],
-      milageHigh: [''],
-      fuelType: [{ value: '', disabled: !this.fuelTypes.length }],
-      gearbox: [{ value: '', disabled: !this.gearboxes.length }],
-      productionYearLow: [''],
-      productionYearHigh: [''],
-      priceLow: [''],
-      priceHigh: [''],
-      segment: [{ value: null, disabled: true }],
-      driveType: [{ value: null, disabled: true }],
+      Brand: [{ value: '', disabled: !this.brands.length }],
+      Model: [{ value: '', disabled: !this.models.length }],
+      Generation: [{ value: '', disabled: !this.generations.length }],
+      CapacityLow: [''],
+      CapacityHigh: [''],
+      HorsepowerLow: [''],
+      HorsepowerHigh: [''],
+      MilageLow: [''],
+      MilageHigh: [''],
+      Fueltype: [{ value: '', disabled: !this.fuelTypes.length }],
+      Gearbox: [{ value: '', disabled: !this.gearboxes.length }],
+      ProductionYearLow: [''],
+      ProductionYearHigh: [''],
+      PriceLow: [''],
+      PriceHigh: [''],
+      Segment: [{ value: null, disabled: true }],
+      DriveType: [{ value: null, disabled: true }],
+    });
+
+    this.statsForm = this.formBuilder.group({
+      type: ['', [Validators.required]],
+      field: ['', [Validators.required]],
     });
   }
 
@@ -70,8 +86,8 @@ export class HomeComponent implements OnInit {
     this.selectedModel = '';
     this.selectedGeneration = '';
 
-    this.updateControlState('model', this.models);
-    this.updateControlState('generation', this.generations);
+    this.updateControlState('Model', this.models);
+    this.updateControlState('Generation', this.generations);
   }
 
   public onModelChange(newModel: string) {
@@ -79,7 +95,7 @@ export class HomeComponent implements OnInit {
     this.generations = this.carBrands[this.selectedBrand][newModel] || [];
     this.selectedGeneration = '';
 
-    this.updateControlState('generation', this.generations);
+    this.updateControlState('Generation', this.generations);
   }
 
   public clearForm(): void {
@@ -87,7 +103,7 @@ export class HomeComponent implements OnInit {
   }
 
   public addToFavourite(): void {
-    const data: IAddFavouriteReq = this.getData();
+    const data: IAddFavouriteReq = this.getAddFavouriteData();
     this.favouritesService
       .addFavourite(data)
       .subscribe((response: { message: string }) => {
@@ -102,17 +118,134 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  private getData(): IAddFavouriteReq {
+  public calculate(): void {
+    this.error = '';
+    this.result = '';
+
+    if (!this.statsForm.valid) {
+      this.error = 'Pola nie mogą być puste.';
+      return;
+    }
+
+    const statType: string = this.statsForm.get('type')?.value;
+    const data: ICalcStatReq = this.getCalcStatData();
+
+    if (!data.inputColumns.length && !data.inputValues.length) {
+      this.error = 'Conajmniej jeden filtr musi być wybrany.';
+      return;
+    }
+
+    switch (statType) {
+      case 'min': {
+        this.statService.calcMin(data).subscribe({
+          next: (response: { result: any }) => {
+            if (response.result) {
+              this.result = `Wartość minimalna dla ${this.getLabel(
+                data.columnToCount
+              )}: ${response.result}`;
+            }
+          },
+          error: (err) => {
+            if (err) {
+              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+            }
+          },
+        });
+        break;
+      }
+      case 'max': {
+        this.statService.calcMax(data).subscribe({
+          next: (response: { result: any }) => {
+            if (response.result) {
+              this.result = `Wartość maksymalna dla ${this.getLabel(
+                data.columnToCount
+              )}: ${response.result}`;
+            }
+          },
+          error: (err) => {
+            if (err) {
+              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+            }
+          },
+        });
+        break;
+      }
+      case 'avg': {
+        this.statService.calcAvg(data).subscribe({
+          next: (response: { result: any }) => {
+            if (response.result) {
+              this.result = `Średnia dla ${this.getLabel(
+                data.columnToCount
+              )}: ${response.result}`;
+            }
+          },
+          error: (err) => {
+            if (err) {
+              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+            }
+          },
+        });
+        break;
+      }
+      case 'median': {
+        this.statService.calcMedian(data).subscribe({
+          next: (response: { result: any }) => {
+            if (response.result) {
+              this.result = `Mediana dla ${this.getLabel(
+                data.columnToCount
+              )}: ${response.result}`;
+            }
+          },
+          error: (err) => {
+            if (err) {
+              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+            }
+          },
+        });
+        break;
+      }
+      case 'mode': {
+        this.statService.calcMode(data).subscribe({
+          next: (response: { result: any }) => {
+            if (response.result) {
+              this.result = `Dominanta dla ${this.getLabel(
+                data.columnToCount
+              )}: ${response.result}`;
+            }
+          },
+          error: (err) => {
+            if (err) {
+              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+            }
+          },
+        });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+
+  private getLabel(value: string): string {
+    const field = this.statsField.find(
+      (field: IStatType) => field.value === value
+    );
+
+    return field ? field?.label : 'null';
+  }
+
+  private getAddFavouriteData(): IAddFavouriteReq {
     const inputColumns: string[] = [];
     const inputValues: any[] = [];
     const nullFields: string[] = [
-      'brand',
-      'model',
-      'generation',
-      'gearbox',
-      'fuelType',
-      'segment',
-      'driveType',
+      'Brand',
+      'Model',
+      'Generation',
+      'Gearbox',
+      'FuelType',
+      'Segment',
+      'DriveType',
     ];
 
     Object.keys(this.filtersForm.controls).forEach((key) => {
@@ -141,6 +274,28 @@ export class HomeComponent implements OnInit {
     return data;
   }
 
+  private getCalcStatData(): ICalcStatReq {
+    const inputColumns: string[] = [];
+    const inputValues: any[] = [];
+
+    Object.keys(this.filtersForm.controls).forEach((key) => {
+      const control = this.filtersForm.get(key);
+
+      if (control?.value !== '' && control?.value !== null) {
+        inputColumns.push(key);
+        inputValues.push(control?.value);
+      }
+    });
+
+    const data: ICalcStatReq = {
+      inputColumns: inputColumns,
+      inputValues: inputValues,
+      columnToCount: this.statsForm.get('field')?.value,
+    };
+
+    return data;
+  }
+
   private getCarDetails(): void {
     this.filtersService.getCarDetails().subscribe((carDetails: ICarDetails) => {
       this.carBrands = carDetails.rows;
@@ -148,7 +303,7 @@ export class HomeComponent implements OnInit {
       this.models = [];
       this.generations = [];
 
-      this.updateControlState('brand', this.brands);
+      this.updateControlState('Brand', this.brands);
     });
   }
 
@@ -158,7 +313,7 @@ export class HomeComponent implements OnInit {
         (gearBox: string) => gearBox !== null
       );
 
-      this.updateControlState('gearbox', this.gearboxes);
+      this.updateControlState('Gearbox', this.gearboxes);
     });
   }
 
@@ -166,7 +321,7 @@ export class HomeComponent implements OnInit {
     this.filtersService.getFuelTypes().subscribe((fuelTypes: IFuelTypeRes) => {
       this.fuelTypes = fuelTypes.rows['Fueltype'];
 
-      this.updateControlState('fueltype', this.fuelTypes);
+      this.updateControlState('Fueltype', this.fuelTypes);
     });
   }
 
