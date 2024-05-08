@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { queryFromFavourite, usersFavouriteQueriesIds, addQueryToFavourite, removeQueryFromFavourite } from '../services/favouriteService';
+import { usersFavouriteQueriesParams, queryFromFavourite, usersFavouriteQueriesIds, addQueryToFavourite, removeQueryFromFavourite } from '../services/favouriteService';
 
 import { transformSearchInToQuery } from '../services/queryGeneratorService'
 import { getDataFromWherePosts } from '../services/postsService'
 
-import { searchParameters } from '../entities/searchEntity'
+// import { searchParameters } from '../entities/searchEntity'
 
 
 const addToFavourite = async (req: Request, res: Response) => {
@@ -46,6 +46,17 @@ const getQueryFromFavouriteById = async (req: Request, res: Response) => {
     }
 }
 
+const getUsersFavouriteQueriesParameters = async (req: Request, res: Response) => {
+    try {
+        const response = await usersFavouriteQueriesIds(req.body.userEmail);
+        // console.log(response)
+        const result = await usersFavouriteQueriesParams(Object.values(response))
+        res.status(200).json({ "message": result.rows });
+
+    } catch (error) {
+        return res.status(401).json({ "message": `${error}`});
+    }
+}
 
 
-module.exports = { addToFavourite, removeFromFavourite, getUsersFavouriteQueriesIds, getQueryFromFavouriteById };
+module.exports = { addToFavourite, removeFromFavourite, getUsersFavouriteQueriesIds, getQueryFromFavouriteById, getUsersFavouriteQueriesParameters };

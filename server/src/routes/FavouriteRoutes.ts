@@ -21,5 +21,8 @@ router.route('/getQueryFromId')
     .get(FavouriteController.getQueryFromFavouriteById)
     // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
 
+router.route('/getUserFavParameters') 
+    .get(FavouriteController.getUsersFavouriteQueriesParameters)
+    // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
     
 module.exports = router;

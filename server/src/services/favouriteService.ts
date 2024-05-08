@@ -72,14 +72,35 @@ const usersFavouriteQueriesIds = async (email: string) => {
     const response: QueryResult = await getQueryResponse(query);
     const output: { [key: string]: number[] } = { 'QueriesFK': [] };
     if (response.rows) {
-        for (let i of response.rows) {
-            if (i && i.QueriesFK !== undefined) {
-                output['QueriesFK'].push(i.QueriesFK);
+        for (let row of response.rows) {
+            if (row && row.QueriesFK !== undefined) {
+                output['QueriesFK'].push(row.QueriesFK);
             }
         }
     }
     return output;
 }
+
+
+const usersFavouriteQueriesParams = async (ids: number[][]) => {
+    let valuesArr: string[] = []  
+    for (let id of ids[0]){
+        valuesArr.push(`'${id}'`)
+    } 
+    
+    let values = JSON.stringify(valuesArr);
+    values = values.replace(/"/g, "");
+    values = values.replace("[", "(")
+    values = values.replace("]", ");")
+
+    let query: string = queriesFavourite.getUserFavouritesParams;
+    query += values;
+    
+    const response: QueryResult = await getQueryResponse(query);
+    return response;
+}
+
+
 
 const queryFromFavourite = async (QueriesFK: number) => {
     let query: string = queriesFavourite.getAllQueriesItem;
@@ -92,5 +113,6 @@ export {
     queryFromFavourite,
     usersFavouriteQueriesIds,
     addQueryToFavourite,
-    removeQueryFromFavourite
+    removeQueryFromFavourite,
+    usersFavouriteQueriesParams
 }

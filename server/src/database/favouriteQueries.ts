@@ -13,6 +13,8 @@ const deleteFromFavouriteTableByQueriesFK: string = `DELETE FROM public."Favouri
 
 const getUserFavourites: string = `SELECT "QueriesFK" FROM public."FavouriteQueries" WHERE "UsersEmailFK" = `
 
+const getUserFavouritesParams: string = `SELECT "Id", "Brand", "Model", "Generation", "CapacityLow", "CapacityHigh", "HorsepowerLow", "HorsepowerHigh", "MilageLow", "MilageHigh", "Fueltype", "Gearbox", "ProductionYearLow", "ProductionYearHigh", "PriceLow", "PriceHigh", "Segment", "DriveType"
+FROM public."Queries" WHERE "Id" IN `
 
 module.exports = {
     getUserFavourites,
@@ -21,7 +23,8 @@ module.exports = {
     columnsQueriesTable,
     insertDataToQueriesTable,
     columnsFavouriteTable,
-    insertDataToFavouriteTable
+    insertDataToFavouriteTable,
+    getUserFavouritesParams
 }
 
 
