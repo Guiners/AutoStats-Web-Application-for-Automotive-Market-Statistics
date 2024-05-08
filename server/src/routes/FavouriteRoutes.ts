@@ -22,7 +22,7 @@ router.route('/getQueryFromId')
     // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
 
 router.route('/getUserFavParameters') 
-    .get(FavouriteController.getUsersFavouriteQueriesParameters)
+    .post(FavouriteController.getUsersFavouriteQueriesParameters)
     // .delete(jwtAuth.auth, PostsController.getFilteredPosts)
     
 module.exports = router;

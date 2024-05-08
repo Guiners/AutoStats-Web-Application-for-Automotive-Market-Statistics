@@ -49,7 +49,6 @@ const getQueryFromFavouriteById = async (req: Request, res: Response) => {
 const getUsersFavouriteQueriesParameters = async (req: Request, res: Response) => {
     try {
         const response = await usersFavouriteQueriesIds(req.body.userEmail);
-        // console.log(response)
         const result = await usersFavouriteQueriesParams(Object.values(response))
         res.status(200).json({ "message": result.rows });
 
