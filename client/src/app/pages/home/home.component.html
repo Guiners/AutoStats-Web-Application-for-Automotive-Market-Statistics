@@ -1,11 +1,273 @@
-<mat-grid-list [cols]="6" rowHeight="100px">
-  <mat-grid-tile [colspan]="1" [rowspan]="3">
-    <ul class="app_navbar">
-      <li (click)="logout()">Wyloguj się</li>
-      <li>Dodaj do ulubionych</li>
-      <li>Ulubione wyszukiwania</li>
-      <li>Usuń wyszukiwanie</li>
-      <li>Oblicz</li>
-    </ul>
-  </mat-grid-tile></mat-grid-list
->
+<app-navbar></app-navbar>
+
+<div class="app-home">
+  <mat-card class="filters-form__card">
+    <form [formGroup]="filtersForm">
+      <h2>Filtry</h2>
+      <div class="card__inputs-container">
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Marka pojazdu</mat-label>
+          <mat-select
+            formControlName="Brand"
+            [disableOptionCentering]="true"
+            [(value)]="selectedBrand"
+            (selectionChange)="onBrandChange($event.value)"
+          >
+            <mat-option *ngFor="let brand of brands" [value]="brand">{{
+              brand
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Model pojazdu</mat-label>
+          <mat-select
+            formControlName="Model"
+            [disableOptionCentering]="true"
+            [(value)]="selectedModel"
+            (selectionChange)="onModelChange($event.value)"
+          >
+            <mat-option *ngFor="let model of models" [value]="model">{{
+              model
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Generacja</mat-label>
+          <mat-select
+            formControlName="Generation"
+            [disableOptionCentering]="true"
+            [(value)]="selectedGeneration"
+          >
+            <mat-option
+              *ngFor="let generation of generations"
+              [value]="generation"
+              >{{ generation }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Skrzynia biegów</mat-label>
+          <mat-select formControlName="Gearbox" [disableOptionCentering]="true">
+            <mat-option *ngFor="let gearbox of gearboxes" [value]="gearbox">{{
+              gearbox
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Rodzaj paliwa</mat-label>
+          <mat-select
+            formControlName="Fueltype"
+            [disableOptionCentering]="true"
+          >
+            <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{
+              fuelType
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Typ nadwozia</mat-label>
+          <mat-select [disabled]="true"> </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="card__inputs-container">
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Przebieg od</mat-label>
+          <input formControlName="MilageLow" matInput type="number" min="0" />
+          <span matSuffix>km</span>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Przebieg do</mat-label>
+          <input formControlName="MilageHigh" matInput type="number" min="0" />
+          <span matSuffix>km</span>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Moc od</mat-label>
+          <input
+            formControlName="HorsepowerLow"
+            matInput
+            type="number"
+            min="0"
+          />
+          <span matSuffix>KM</span>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Moc do</mat-label>
+          <input
+            formControlName="HorsepowerHigh"
+            matInput
+            type="number"
+            min="0"
+          />
+          <span matSuffix>KM</span>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Pojemność skokowa od</mat-label>
+          <input formControlName="CapacityLow" matInput type="number" min="0" />
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Pojemność skokowa do</mat-label>
+          <input
+            formControlName="CapacityHigh"
+            matInput
+            type="number"
+            min="0"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="card__inputs-container">
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Cena od</mat-label>
+          <input formControlName="PriceLow" matInput type="number" min="0" />
+          <span matSuffix>PLN</span>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Cena do</mat-label>
+          <input formControlName="PriceHigh" matInput type="number" min="0" />
+          <span matSuffix>PLN</span>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Rok produkcji od</mat-label>
+          <input
+            formControlName="ProductionYearLow"
+            matInput
+            type="number"
+            min="0"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Rok produkcji do</mat-label>
+          <input
+            formControlName="ProductionYearHigh"
+            matInput
+            type="number"
+            min="0"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Napęd</mat-label>
+          <mat-select [disabled]="true"> </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Lokalizacja</mat-label>
+          <mat-select [disabled]="true"> </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="card__buttons-container">
+        <button (click)="clearForm()">Wyczyść filtry</button>
+        <button (click)="addToFavourite()">Dodaj do ulubionych</button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card class="stats-form__card">
+    <form [formGroup]="statsForm">
+      <h2>Statystyki</h2>
+      <div class="card__inputs-container">
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Wybierz typ statystyki</mat-label>
+          <mat-select formControlName="type" [disableOptionCentering]="true">
+            <mat-option *ngFor="let type of statsType" [value]="type.value">{{
+              type.label
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          class="card__inputs-container--input"
+          appearance="outline"
+        >
+          <mat-label>Wybierz parametr</mat-label>
+          <mat-select formControlName="field" [disableOptionCentering]="true">
+            <mat-option
+              *ngFor="let field of statsField"
+              [value]="field.value"
+              >{{ field.label }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <button (click)="calculate()">Oblicz</button>
+      </div>
+      <div *ngIf="result" class="card__result">
+        {{ result }}
+      </div>
+
+      <div *ngIf="error" class="card__result card__error">
+        {{ error }}
+      </div>
+    </form>
+  </mat-card>
+</div>

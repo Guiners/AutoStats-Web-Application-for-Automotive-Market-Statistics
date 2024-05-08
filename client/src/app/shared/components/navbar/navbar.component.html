@@ -1,0 +1,26 @@
+<mat-toolbar class="app-navbar">
+  <span class="app-navbar__spacer"></span>
+  <ul>
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="app-navbar__active"
+        class="app-navbar__element app-navbar__link"
+        >Strona główna</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/favourite"
+        routerLinkActive="app-navbar__active"
+        class="app-navbar__element app-navbar__link"
+        >Ulubione</a
+      >
+    </li>
+    <li>
+      <a class="app-navbar__element app-navbar__logout" (click)="logout()"
+        >Wyloguj się</a
+      >
+    </li>
+  </ul>
+</mat-toolbar>

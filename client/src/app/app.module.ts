@@ -11,9 +11,10 @@ import { AuthInterceptor } from './core/services/auth-token-interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, HomeComponent],
+  declarations: [AppComponent, NotFoundComponent, HomeComponent, NavbarComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

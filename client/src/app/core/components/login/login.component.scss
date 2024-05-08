@@ -1,7 +1,6 @@
 $signin-background-color: #fafafa;
-$signin-register-card-background-color: #f7f6e6;
-$signin-text-main-color: #616159;
-$register-button-color: white;
+$text-color: #616159;
+$button-color: #f7f6e6;
 
 .app-signin {
   background-color: $signin-background-color;
@@ -30,7 +29,7 @@ $register-button-color: white;
         font-size: 40px;
         text-transform: uppercase;
         font-weight: bold;
-        color: $signin-text-main-color;
+        color: $text-color;
         padding-bottom: 50px;
         margin-top: 0;
         position: relative;
@@ -55,7 +54,7 @@ $register-button-color: white;
         width: 340px;
         padding: 15px;
         font-size: 14px;
-        color: $signin-text-main-color;
+        color: $text-color;
         text-align: center;
       }
 
@@ -74,8 +73,8 @@ $register-button-color: white;
           font-weight: bold;
           font-size: 14px;
           cursor: pointer;
-          background-color: $signin-register-card-background-color;
-          color: $signin-text-main-color;
+          background-color: $button-color;
+          color: $text-color;
         }
       }
     }
