@@ -223,6 +223,9 @@
         </mat-form-field>
       </div>
       <div class="card__buttons-container">
+        <p *ngIf="filtersError" class="card__result card__error">
+          {{ filtersError }}
+        </p>
         <button (click)="clearForm()">Wyczyść filtry</button>
         <button (click)="addToFavourite()">Dodaj do ulubionych</button>
       </div>
@@ -265,8 +268,8 @@
         {{ result }}
       </div>
 
-      <div *ngIf="error" class="card__result card__error">
-        {{ error }}
+      <div *ngIf="statsError" class="card__result card__error">
+        {{ statsError }}
       </div>
     </form>
   </mat-card>

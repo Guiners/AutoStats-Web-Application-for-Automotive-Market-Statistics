@@ -5,6 +5,7 @@ import { LoginComponent } from './core/components/login/login.component';
 import { RegisterComponent } from './core/components/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { FavouritesComponent } from './pages/favourites/favourites.component';
 
 const routes: Routes = [
   {
@@ -20,8 +21,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
+    data: { requiredAuth: true },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'favourite',
+    component: FavouritesComponent,
     data: { requiredAuth: true },
     canActivate: [AuthGuard],
   },

@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+
+<div class="app-favourites">
+  <mat-card class="favourites__card">
+    <h2>Twoje obserwowane ogłoszenia ({{ favourites.length }}) :</h2>
+    <mat-list>
+      <mat-list-item *ngFor="let favourite of favourites">
+        {{ getRecord(favourite) }}
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

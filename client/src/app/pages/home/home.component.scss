@@ -1,6 +1,4 @@
 $home-background-color: #fafafa;
-$button-color: #f7f6e6;
-$text-color: #616159;
 
 .app-home {
   background-color: $home-background-color;
@@ -60,27 +58,6 @@ $text-color: #616159;
       margin: 0 10px;
     }
   }
-}
-
-button {
-  border: none;
-  outline: none;
-  padding: 16px 0;
-  margin-left: 5px;
-  border-radius: 20px;
-  width: 180px;
-  height: 63px;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: $button-color;
-}
-
-h2 {
-  color: $text-color;
-  padding-left: 10px;
-  padding-bottom: 15px;
-  margin: 0;
 }
 
 .card__result {

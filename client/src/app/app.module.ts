@@ -12,9 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { FavouritesComponent } from './pages/favourites/favourites.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, HomeComponent, NavbarComponent],
+  declarations: [AppComponent, NotFoundComponent, HomeComponent, NavbarComponent, FavouritesComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

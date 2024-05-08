@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+$button-color: #f7f6e6;
+$text-color: #616159;
+
 html,
 body {
   height: 100vh;
@@ -10,4 +13,26 @@ body {
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button {
+  border: none;
+  outline: none;
+  padding: 16px 0;
+  margin-left: 5px;
+  border-radius: 20px;
+  width: 180px;
+  height: 63px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: $button-color;
+}
+
+h2 {
+  color: $text-color;
+  padding-left: 10px;
+  padding-bottom: 15px;
+  margin: 0;
+  font-size: 18px;
 }

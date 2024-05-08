@@ -18,7 +18,8 @@ import { StatService } from 'src/app/shared/services/stat.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public error: string = '';
+  public filtersError: string = '';
+  public statsError: string = '';
   public result: string = '';
 
   public filtersForm: FormGroup;
@@ -103,7 +104,14 @@ export class HomeComponent implements OnInit {
   }
 
   public addToFavourite(): void {
+    this.filtersError = '';
     const data: IAddFavouriteReq = this.getAddFavouriteData();
+
+    if (!this.hasAtLeastOneValue(this.filtersForm)) {
+      this.filtersError = 'Przynajmniej jeden filtr musi być wybrany.';
+      return;
+    }
+
     this.favouritesService
       .addFavourite(data)
       .subscribe((response: { message: string }) => {
@@ -119,11 +127,11 @@ export class HomeComponent implements OnInit {
   }
 
   public calculate(): void {
-    this.error = '';
+    this.statsError = '';
     this.result = '';
 
     if (!this.statsForm.valid) {
-      this.error = 'Pola nie mogą być puste.';
+      this.statsError = 'Pola nie mogą być puste.';
       return;
     }
 
@@ -131,7 +139,7 @@ export class HomeComponent implements OnInit {
     const data: ICalcStatReq = this.getCalcStatData();
 
     if (!data.inputColumns.length && !data.inputValues.length) {
-      this.error = 'Conajmniej jeden filtr musi być wybrany.';
+      this.statsError = 'Przynajmniej jeden filtr musi być wybrany.';
       return;
     }
 
@@ -147,7 +155,7 @@ export class HomeComponent implements OnInit {
           },
           error: (err) => {
             if (err) {
-              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
             }
           },
         });
@@ -164,7 +172,7 @@ export class HomeComponent implements OnInit {
           },
           error: (err) => {
             if (err) {
-              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
             }
           },
         });
@@ -181,7 +189,7 @@ export class HomeComponent implements OnInit {
           },
           error: (err) => {
             if (err) {
-              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
             }
           },
         });
@@ -198,7 +206,7 @@ export class HomeComponent implements OnInit {
           },
           error: (err) => {
             if (err) {
-              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
             }
           },
         });
@@ -215,7 +223,7 @@ export class HomeComponent implements OnInit {
           },
           error: (err) => {
             if (err) {
-              this.error = 'Coś poszło nie tak. Spróbuj ponownie.';
+              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
             }
           },
         });
@@ -225,6 +233,13 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
+  }
+
+  private hasAtLeastOneValue(form: FormGroup): boolean {
+    return Object.keys(form.controls).some((key) => {
+      const control = form.controls[key];
+      return control.value !== '' && control.value != null;
+    });
   }
 
   private getLabel(value: string): string {

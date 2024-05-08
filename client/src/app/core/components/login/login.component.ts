@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           if (!res) {
             this.error = 'Wprowadzony email lub hasło są nieprawidłowe.';
           } else {
-            this.router.navigate(['/']);
+            this.router.navigate(['/home']);
           }
         },
       });
