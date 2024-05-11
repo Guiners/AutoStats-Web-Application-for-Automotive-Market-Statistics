@@ -4,7 +4,10 @@
   <mat-card class="favourites__card">
     <h2>Twoje obserwowane ogłoszenia ({{ favourites.length }}) :</h2>
     <mat-list>
-      <mat-list-item *ngFor="let favourite of favourites">
+      <mat-list-item *ngFor="let favourite of favourites; let i = index">
+        <span (click)="removeRecord(favourite.Id, i)" class="delete-button"
+          >X
+        </span>
         {{ getRecord(favourite) }}
       </mat-list-item>
     </mat-list>

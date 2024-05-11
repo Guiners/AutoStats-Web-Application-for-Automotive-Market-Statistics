@@ -26,4 +26,8 @@ export class FavouritesService {
       data
     );
   }
+
+  public removeFavourite(data: { Id: number }): Observable<any> {
+    return this.http.post<any>(`${this.apiURL}/favourite/remove`, data);
+  }
 }

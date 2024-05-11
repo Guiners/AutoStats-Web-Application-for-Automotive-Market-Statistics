@@ -143,96 +143,50 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    switch (statType) {
-      case 'min': {
-        this.statService.calcMin(data).subscribe({
-          next: (response: { result: any }) => {
-            if (response.result) {
-              this.result = `Wartość minimalna dla ${this.getLabel(
-                data.columnToCount
-              )}: ${response.result}`;
-            }
-          },
-          error: (err) => {
-            if (err) {
-              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
-            }
-          },
-        });
-        break;
-      }
-      case 'max': {
-        this.statService.calcMax(data).subscribe({
-          next: (response: { result: any }) => {
-            if (response.result) {
-              this.result = `Wartość maksymalna dla ${this.getLabel(
-                data.columnToCount
-              )}: ${response.result}`;
-            }
-          },
-          error: (err) => {
-            if (err) {
-              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
-            }
-          },
-        });
-        break;
-      }
-      case 'avg': {
-        this.statService.calcAvg(data).subscribe({
-          next: (response: { result: any }) => {
-            if (response.result) {
-              this.result = `Średnia dla ${this.getLabel(
-                data.columnToCount
-              )}: ${response.result}`;
-            }
-          },
-          error: (err) => {
-            if (err) {
-              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
-            }
-          },
-        });
-        break;
-      }
-      case 'median': {
-        this.statService.calcMedian(data).subscribe({
-          next: (response: { result: any }) => {
-            if (response.result) {
-              this.result = `Mediana dla ${this.getLabel(
-                data.columnToCount
-              )}: ${response.result}`;
-            }
-          },
-          error: (err) => {
-            if (err) {
-              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
-            }
-          },
-        });
-        break;
-      }
-      case 'mode': {
-        this.statService.calcMode(data).subscribe({
-          next: (response: { result: any }) => {
-            if (response.result) {
-              this.result = `Dominanta dla ${this.getLabel(
-                data.columnToCount
-              )}: ${response.result}`;
-            }
-          },
-          error: (err) => {
-            if (err) {
-              this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
-            }
-          },
-        });
-        break;
-      }
-      default: {
-        break;
-      }
+    this.executeStatCalculation(statType, data);
+  }
+
+  private executeStatCalculation(statType: string, data: ICalcStatReq): void {
+    const statMethodMapping: any = {
+      min: this.statService.calcMin,
+      max: this.statService.calcMax,
+      avg: this.statService.calcAvg,
+      median: this.statService.calcMedian,
+      mode: this.statService.calcMode,
+    };
+
+    const selectedMethod = statMethodMapping[statType];
+
+    if (selectedMethod) {
+      selectedMethod.call(this.statService, data).subscribe({
+        next: (response: { result: any }) => {
+          if (response.result) {
+            this.result = `${this.statDescription(
+              statType
+            )} dla ${this.getLabel(data.columnToCount)}: ${response.result}`;
+          }
+        },
+        error: () => {
+          this.handleError();
+        },
+      });
     }
+  }
+
+  private statDescription(type: string): string {
+    const descriptions: any = {
+      min: 'Wartość minimalna',
+      max: 'Wartość maksymalna',
+      avg: 'Średnia',
+      median: 'Mediana',
+      mode: 'Dominanta',
+    };
+
+    return descriptions[type] || 'Statystyka';
+  }
+
+  private handleError(): void {
+    this.statsError = 'Coś poszło nie tak. Spróbuj ponownie.';
   }
 
   private hasAtLeastOneValue(form: FormGroup): boolean {

@@ -25,7 +25,17 @@ export class FavouritesComponent implements OnInit {
   }
 
   public getRecord(favourite: IFavourites) {
-    return `${favourite.Brand} | ${favourite.Model} | ${favourite.Generation} | ${favourite.Gearbox} | ${favourite.Fueltype} | ${favourite.MilageLow}km | ${favourite.MilageHigh}km | ${favourite.HorsepowerLow}KM | ${favourite.HorsepowerHigh}KM | ${favourite.CapacityLow} | ${favourite.CapacityHigh} | ${favourite.PriceLow}PLN | ${favourite.PriceHigh}PLN | ${favourite.ProductionYearLow}r | ${favourite.ProductionYearHigh}r`;
+    return `${favourite.Brand} | ${favourite.Model} | ${favourite.Generation} | ${favourite.Gearbox} | ${favourite.Fueltype} | Przebieg: ${favourite.MilageLow}km - ${favourite.MilageHigh}km | Moc: ${favourite.HorsepowerLow}KM - ${favourite.HorsepowerHigh}KM | Pojemność: ${favourite.CapacityLow} - ${favourite.CapacityHigh} | Cena: ${favourite.PriceLow}PLN - ${favourite.PriceHigh}PLN | Rok produkcji: ${favourite.ProductionYearLow}r - ${favourite.ProductionYearHigh}r`;
+  }
+
+  public removeRecord(id: number, index: number): void {
+    this.favouritesService
+      .removeFavourite({ Id: id })
+      .subscribe((response: { message: string }) => {
+        if (response && response.message === 'DELETE') {
+          this.favourites.splice(index, 1);
+        }
+      });
   }
 
   private getFavourites(): void {
