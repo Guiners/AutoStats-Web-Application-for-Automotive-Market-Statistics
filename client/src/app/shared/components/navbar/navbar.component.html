@@ -3,8 +3,9 @@
   <ul>
     <li>
       <a
-        routerLink="/home"
+        routerLink="/"
         routerLinkActive="app-navbar__active"
+        [routerLinkActiveOptions]="{ exact: true }"
         class="app-navbar__element app-navbar__link"
         >Strona główna</a
       >

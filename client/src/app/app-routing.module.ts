@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
     data: { requiredAuth: true },
     canActivate: [AuthGuard],
